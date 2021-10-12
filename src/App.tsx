@@ -7,7 +7,7 @@ interface Props {
 const App = (props: Props) => {
   return (
     <div>
-sdknk
+    sdknk
     </div>
   )
 }
