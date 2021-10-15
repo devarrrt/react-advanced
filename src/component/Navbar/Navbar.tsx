@@ -4,13 +4,22 @@ import { MenuItem } from 'rc-menu'
 import { useHistory } from 'react-router-dom'
 import { RoutesName } from '../../routes'
 import { useTypeSelector } from '../../store/ducks/auth/authSelectors'
+import { useDispatch } from 'react-redux'
+import { logoutAction } from '../../store/ducks/auth/authAction'
 
 
 interface INavbar { }
 
 const Navbar: React.FC<INavbar> = () => {
     const router = useHistory()
-    const { isAuth } = useTypeSelector(state => state.auth)
+    const { isAuth, user } = useTypeSelector(state => state.auth)
+    const dispatch = useDispatch()
+
+    const logout = () => {
+        if (window.confirm('Хотите выйти') ) {
+            dispatch(logoutAction())
+        }
+    }
 
     return (
         <Layout.Header>
@@ -19,12 +28,12 @@ const Navbar: React.FC<INavbar> = () => {
                     ?
                     <>
                         <div style={{ color: 'white' }}>
-                            devarrrt
+                            {user?.username}
                         </div>
                         <Menu theme="dark" mode="horizontal" selectable={false}>
                             <MenuItem
                                 key={1}
-                                onClick={() => console.log('logout')}
+                                onClick={logout}
                             > Logout </MenuItem>
                         </Menu>
                     </>
