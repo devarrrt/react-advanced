@@ -1,14 +1,15 @@
 [
     {
-        "username": "Ivan",
+        "username": "Анастасия",
         "password": "123"
     },
     {
-        "username": "Marina",
-        "password": "qwerty"
+        "username": "Ксения",
+        "password": "456"
     },
     {
-        "username": "Den",
-        "password": "qaz"
+        "username": "Артем",
+        "password": "789"
     }
+
 ]

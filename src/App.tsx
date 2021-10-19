@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Layout } from 'antd'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { Navbar } from './component'
@@ -6,8 +6,19 @@ import { privateRoutes, publicRoutes, RoutesName } from './routes'
 import { useTypeSelector } from './store/ducks/auth/authSelectors'
 
 import './index.css';
+import { useDispatch } from 'react-redux'
+import { setAuthAction, setUserAction } from './store/ducks/auth/authAction'
+import { IUser } from './store/ducks/auth/types'
 const App = () => {
     const { isAuth } = useTypeSelector(state => state.auth)
+    const dispatch = useDispatch()
+
+    useEffect(()=> {
+        if ( localStorage.getItem('auth')) {
+            dispatch(setAuthAction(true))
+            dispatch(setUserAction({ username: localStorage.getItem('username' || "")} as IUser))
+        }
+    }, [])
 
     return (
         <Layout>
