@@ -5,22 +5,30 @@ import { useDispatch } from 'react-redux';
 import { EventForm } from '../../component';
 import EventCalendar from '../../component/EventCalendar/EventCalendar'
 import { useTypeSelector } from '../../store/ducks/auth/authSelectors';
-import { fetchGuests } from '../../store/ducks/event/eventActions';
+import { createEvent, fetchEvents, fetchGuests } from '../../store/ducks/event/eventActions';
+import { IEvent } from '../../store/ducks/event/types';
 
-interface IEvent { }
 
-const Event: React.FC<IEvent> = () => {
+const Event: React.FC = () => {
     const [modalVisible, setModalVisible] = useState(false);
-    const { events, quests } = useTypeSelector(state => state.event)
+    const { events, guests } = useTypeSelector(state => state.event)
+    const { user } = useTypeSelector( state => state.auth )
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(fetchGuests())
-    }, [dispatch])
+        //@ts-ignore
+        dispatch(fetchEvents(user.username))
+    }, [])
+
+    const addNewEvent = (event: IEvent) => {
+        setModalVisible(false)
+        dispatch(createEvent(event))
+    }
 
     return (
         <Layout>
-            <EventCalendar events={[]} />
+            <EventCalendar events={events} />
             <Row justify="center" style={{ margin: 40 }}>
                 <Button onClick={() => setModalVisible(true)}>
                     Добавить событие
@@ -30,7 +38,9 @@ const Event: React.FC<IEvent> = () => {
                 visible={modalVisible}
                 onCancel={() => setModalVisible(false)}
                 footer={null}>
-                <EventForm quests={quests} />
+                <EventForm
+                    guests={guests}
+                    submit={addNewEvent} />
             </Modal>
         </Layout>
     )

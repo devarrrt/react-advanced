@@ -1,10 +1,9 @@
 import { EventActions, EventsActionsType } from './eventActions';
 import { EventState } from "./types"
 
-
 const initialState: EventState = {
     events: [],
-    quests: []
+    guests: []
 }
 
 const eventReducer = ( state = initialState, action: EventActions ): EventState => {
@@ -14,10 +13,10 @@ const eventReducer = ( state = initialState, action: EventActions ): EventState 
             ...state,
             events: action.payload
         }
-        case EventsActionsType.SET_QUESTS:
+        case EventsActionsType.SET_GUESTS:
         return{
             ...state,
-         quests: action.payload   
+         guests: action.payload   
         }
         default: return state
 

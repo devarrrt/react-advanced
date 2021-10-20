@@ -1,6 +1,5 @@
 import { IUser } from "./types";
 import { Action } from "redux";
-import axios from "axios";
 import UserService from "../../../API/UserService";
 
 export enum AuthActionsType {

@@ -1,4 +1,3 @@
-
 export interface AuthState {
     isAuth: boolean,
     user: null |  IUser,
